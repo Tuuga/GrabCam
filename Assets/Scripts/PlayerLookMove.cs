@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class PlayerLookMove : MonoBehaviour {
@@ -12,12 +13,17 @@ public class PlayerLookMove : MonoBehaviour {
 	float horizontalRotation;
 	public GameObject mainCam;
 	public Rigidbody rb;
+	public Slider mouseSlider;
+	public Text mouseText;
 
 	void Start () {
 		Cursor.visible = false;
 	}
 	
 	void Update () {
+		mouseSens = mouseSlider.value;
+		mouseText.text = ("Mouse Sensitivity\n" + mouseSens);
+
 		if (mouseLock)
 		MouseLook();
 
