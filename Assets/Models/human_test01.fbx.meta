@@ -62,6 +62,7 @@ ModelImporter:
     100108: thumb2.R
     100110: thumb2.R_end
     100112: upperback
+    100114: human_test01.001
     400000: arm1.L
     400002: arm1.R
     400004: arm2.L
@@ -119,11 +120,16 @@ ModelImporter:
     400108: thumb2.R
     400110: thumb2.R_end
     400112: upperback
+    400114: human_test01.001
     4300000: human_test01
+    4300002: human_test01.001
     7400000: human_test_armature|idle
     7400002: human_test01|idle
+    7400004: human_test_armature|walk
+    7400006: human_test_armature|sit_idle
     9500000: //RootNode
     13700000: human_test01
+    13700002: human_test01.001
   materials:
     importMaterials: 1
     materialName: 0
@@ -315,6 +321,290 @@ ModelImporter:
       - path: 
         weight: 1
       - path: human_test01
+        weight: 1
+      - path: human_test_armature
+        weight: 1
+      - path: human_test_armature/IKarm.L
+        weight: 1
+      - path: human_test_armature/IKarm.L/IKarm.L_end
+        weight: 1
+      - path: human_test_armature/IKarm.R
+        weight: 1
+      - path: human_test_armature/IKarm.R/IKarm.R_end
+        weight: 1
+      - path: human_test_armature/IKelbow.L
+        weight: 1
+      - path: human_test_armature/IKelbow.L/IKelbow.L_end
+        weight: 1
+      - path: human_test_armature/IKelbow.R
+        weight: 1
+      - path: human_test_armature/IKelbow.R/IKelbow.R_end
+        weight: 1
+      - path: human_test_armature/IKknee.L
+        weight: 1
+      - path: human_test_armature/IKknee.L/IKknee.L_end
+        weight: 1
+      - path: human_test_armature/IKknee.R
+        weight: 1
+      - path: human_test_armature/IKknee.R/IKknee.R_end
+        weight: 1
+      - path: human_test_armature/IKleg.L
+        weight: 1
+      - path: human_test_armature/IKleg.L/IKleg.L_end
+        weight: 1
+      - path: human_test_armature/IKleg.R
+        weight: 1
+      - path: human_test_armature/IKleg.R/IKleg.R_end
+        weight: 1
+      - path: human_test_armature/root
+        weight: 1
+      - path: human_test_armature/root/lowerback
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.L
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.L/arm2.L
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.L/arm2.L/arm3.L
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.L/arm2.L/arm3.L/arm4.L
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.L/arm2.L/arm3.L/arm4.L/palm.L
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.L/arm2.L/arm3.L/arm4.L/palm.L/fingers.L
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.L/arm2.L/arm3.L/arm4.L/palm.L/fingers.L/fingers.L_end
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.L/arm2.L/arm3.L/arm4.L/thumb1.L
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.L/arm2.L/arm3.L/arm4.L/thumb1.L/thumb2.L
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.L/arm2.L/arm3.L/arm4.L/thumb1.L/thumb2.L/thumb2.L_end
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.R
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.R/arm2.R
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.R/arm2.R/arm3.R
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.R/arm2.R/arm3.R/arm4.R
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.R/arm2.R/arm3.R/arm4.R/palm.R
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.R/arm2.R/arm3.R/arm4.R/palm.R/fingers.R
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.R/arm2.R/arm3.R/arm4.R/palm.R/fingers.R/fingers.R_end
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.R/arm2.R/arm3.R/arm4.R/thumb1.R
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.R/arm2.R/arm3.R/arm4.R/thumb1.R/thumb2.R
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.R/arm2.R/arm3.R/arm4.R/thumb1.R/thumb2.R/thumb2.R_end
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/head
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/head/head_end
+        weight: 1
+      - path: human_test_armature/root/pelvis
+        weight: 1
+      - path: human_test_armature/root/pelvis/leg1.L
+        weight: 1
+      - path: human_test_armature/root/pelvis/leg1.L/leg2.L
+        weight: 1
+      - path: human_test_armature/root/pelvis/leg1.L/leg2.L/leg3.L
+        weight: 1
+      - path: human_test_armature/root/pelvis/leg1.L/leg2.L/leg3.L/leg4.L
+        weight: 1
+      - path: human_test_armature/root/pelvis/leg1.L/leg2.L/leg3.L/leg4.L/foot.L
+        weight: 1
+      - path: human_test_armature/root/pelvis/leg1.L/leg2.L/leg3.L/leg4.L/foot.L/foot.L_end
+        weight: 1
+      - path: human_test_armature/root/pelvis/leg1.R
+        weight: 1
+      - path: human_test_armature/root/pelvis/leg1.R/leg2.R
+        weight: 1
+      - path: human_test_armature/root/pelvis/leg1.R/leg2.R/leg3.R
+        weight: 1
+      - path: human_test_armature/root/pelvis/leg1.R/leg2.R/leg3.R/leg4.R
+        weight: 1
+      - path: human_test_armature/root/pelvis/leg1.R/leg2.R/leg3.R/leg4.R/foot.R
+        weight: 1
+      - path: human_test_armature/root/pelvis/leg1.R/leg2.R/leg3.R/leg4.R/foot.R/foot.R_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: human_test_armature|walk
+      takeName: human_test_armature|walk
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: human_test01.001
+        weight: 1
+      - path: human_test_armature
+        weight: 1
+      - path: human_test_armature/IKarm.L
+        weight: 1
+      - path: human_test_armature/IKarm.L/IKarm.L_end
+        weight: 1
+      - path: human_test_armature/IKarm.R
+        weight: 1
+      - path: human_test_armature/IKarm.R/IKarm.R_end
+        weight: 1
+      - path: human_test_armature/IKelbow.L
+        weight: 1
+      - path: human_test_armature/IKelbow.L/IKelbow.L_end
+        weight: 1
+      - path: human_test_armature/IKelbow.R
+        weight: 1
+      - path: human_test_armature/IKelbow.R/IKelbow.R_end
+        weight: 1
+      - path: human_test_armature/IKknee.L
+        weight: 1
+      - path: human_test_armature/IKknee.L/IKknee.L_end
+        weight: 1
+      - path: human_test_armature/IKknee.R
+        weight: 1
+      - path: human_test_armature/IKknee.R/IKknee.R_end
+        weight: 1
+      - path: human_test_armature/IKleg.L
+        weight: 1
+      - path: human_test_armature/IKleg.L/IKleg.L_end
+        weight: 1
+      - path: human_test_armature/IKleg.R
+        weight: 1
+      - path: human_test_armature/IKleg.R/IKleg.R_end
+        weight: 1
+      - path: human_test_armature/root
+        weight: 1
+      - path: human_test_armature/root/lowerback
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.L
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.L/arm2.L
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.L/arm2.L/arm3.L
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.L/arm2.L/arm3.L/arm4.L
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.L/arm2.L/arm3.L/arm4.L/palm.L
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.L/arm2.L/arm3.L/arm4.L/palm.L/fingers.L
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.L/arm2.L/arm3.L/arm4.L/palm.L/fingers.L/fingers.L_end
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.L/arm2.L/arm3.L/arm4.L/thumb1.L
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.L/arm2.L/arm3.L/arm4.L/thumb1.L/thumb2.L
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.L/arm2.L/arm3.L/arm4.L/thumb1.L/thumb2.L/thumb2.L_end
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.R
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.R/arm2.R
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.R/arm2.R/arm3.R
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.R/arm2.R/arm3.R/arm4.R
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.R/arm2.R/arm3.R/arm4.R/palm.R
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.R/arm2.R/arm3.R/arm4.R/palm.R/fingers.R
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.R/arm2.R/arm3.R/arm4.R/palm.R/fingers.R/fingers.R_end
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.R/arm2.R/arm3.R/arm4.R/thumb1.R
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.R/arm2.R/arm3.R/arm4.R/thumb1.R/thumb2.R
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/arm1.R/arm2.R/arm3.R/arm4.R/thumb1.R/thumb2.R/thumb2.R_end
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/head
+        weight: 1
+      - path: human_test_armature/root/lowerback/upperback/head/head_end
+        weight: 1
+      - path: human_test_armature/root/pelvis
+        weight: 1
+      - path: human_test_armature/root/pelvis/leg1.L
+        weight: 1
+      - path: human_test_armature/root/pelvis/leg1.L/leg2.L
+        weight: 1
+      - path: human_test_armature/root/pelvis/leg1.L/leg2.L/leg3.L
+        weight: 1
+      - path: human_test_armature/root/pelvis/leg1.L/leg2.L/leg3.L/leg4.L
+        weight: 1
+      - path: human_test_armature/root/pelvis/leg1.L/leg2.L/leg3.L/leg4.L/foot.L
+        weight: 1
+      - path: human_test_armature/root/pelvis/leg1.L/leg2.L/leg3.L/leg4.L/foot.L/foot.L_end
+        weight: 1
+      - path: human_test_armature/root/pelvis/leg1.R
+        weight: 1
+      - path: human_test_armature/root/pelvis/leg1.R/leg2.R
+        weight: 1
+      - path: human_test_armature/root/pelvis/leg1.R/leg2.R/leg3.R
+        weight: 1
+      - path: human_test_armature/root/pelvis/leg1.R/leg2.R/leg3.R/leg4.R
+        weight: 1
+      - path: human_test_armature/root/pelvis/leg1.R/leg2.R/leg3.R/leg4.R/foot.R
+        weight: 1
+      - path: human_test_armature/root/pelvis/leg1.R/leg2.R/leg3.R/leg4.R/foot.R/foot.R_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: human_test_armature|sit_idle
+      takeName: human_test_armature|sit_idle
+      firstFrame: 0
+      lastFrame: 96
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: human_test01.001
         weight: 1
       - path: human_test_armature
         weight: 1
