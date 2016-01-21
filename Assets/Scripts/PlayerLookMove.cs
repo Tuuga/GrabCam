@@ -38,13 +38,6 @@ public class PlayerLookMove : MonoBehaviour {
             StayAttached();
         }
 
-        mainCam.transform.position = transform.position;
-        mouseSens = mouseSlider.value;
-        mouseText.text = ("Mouse Sensitivity\n" + mouseSens);
-        if (mouseLock) {
-            MouseLook();
-        }
-
         //Mouse Lock
         if (Input.GetKeyDown(KeyCode.LeftAlt)) {
             MouseLock();
@@ -60,7 +53,15 @@ public class PlayerLookMove : MonoBehaviour {
             LaunchMove();
         } else {
 			grappleCount = 0;
-		}
+        }
+
+        mainCam.transform.position = transform.position;
+        mouseSens = mouseSlider.value;
+        mouseText.text = ("Mouse Sensitivity\n" + mouseSens);
+        if (mouseLock) {
+            MouseLook();
+        }
+
     }
 
     void MouseLook() {
@@ -105,13 +106,14 @@ public class PlayerLookMove : MonoBehaviour {
         attachScale = t.localScale;
         attachRot = t.localRotation;
         Vector3 attachDifference = transform.position - t.position;
-        attachDifference = attachDifference / attachDifference.magnitude * (attachDifference.magnitude - radius);
-        attachDir = Quaternion.Inverse(attachRot)*new Vector3(attachDifference.x/attachScale.x, attachDifference.y / attachScale.y, attachDifference.z / attachScale.z);
+        attachDifference = attachDifference.normalized * (attachDifference.magnitude - radius);
+        attachDifference = Quaternion.Inverse(attachRot)*attachDifference;
+        attachDir = new Vector3(attachDifference.x / attachScale.x, attachDifference.y / attachScale.y, attachDifference.z / attachScale.z);
     }
 
     void StayAttached() {
         if (attachedTo.rotation != attachRot)
-            attachRot = attachedTo.rotation;
+            attachRot = attachedTo.localRotation;
 
         if (attachedTo.localScale != attachScale)
             attachScale = attachedTo.localScale;
@@ -119,17 +121,21 @@ public class PlayerLookMove : MonoBehaviour {
         if (attachedTo.position != attachPos)
             attachPos = attachedTo.position;
 
-        Vector3 attachDifference = (attachRot * new Vector3(attachDir.x * attachScale.x, attachDir.y * attachScale.y, attachDir.z * attachScale.z));
-        transform.position = attachPos + attachDifference/attachDifference.magnitude*(attachDifference.magnitude + radius);
+        Vector3 attachDifference = attachRot * new Vector3(attachDir.x * attachScale.x, attachDir.y * attachScale.y, attachDir.z * attachScale.z);
+        transform.position = attachPos + attachDifference.normalized*(attachDifference.magnitude + radius);
     }
 
 	void StartLaunch () {
 		Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        
-		//LayerMask mask = 1 << 8;
-		//Debug.Log("GrappleDir");
-		//if (Physics.Raycast(transform.position, mainCam.transform.forward, out hitPoint)) {
-		if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitPoint)) {
+
+        launchDir = camRay.direction;
+        launched = true;
+        attachedTo = null;
+
+        //LayerMask mask = 1 << 8;
+        //Debug.Log("GrappleDir");
+        //if (Physics.Raycast(transform.position, mainCam.transform.forward, out hitPoint)) {
+        /*if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitPoint)) {
 			Debug.DrawLine(transform.position, hitPoint.point, Color.red, 5f);
 			if (Vector3.Distance(hitPoint.point, transform.position) > minGrappleDist) {
 				launchDir = (hitPoint.point - transform.position).normalized;
@@ -139,6 +145,6 @@ public class PlayerLookMove : MonoBehaviour {
 				launchDir = Vector3.zero;
 				launched = false;
 			}
-		}
+		}*/
 	}
 }
