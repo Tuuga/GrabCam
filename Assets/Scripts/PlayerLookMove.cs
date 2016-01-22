@@ -6,10 +6,12 @@ public class PlayerLookMove : MonoBehaviour {
 
     bool mouseLock;
     bool launched;
-    public float maxGrappleDist;
+    public float minGrappleDist;
     public float movSpeed;
     public float mouseSens;
     public float upDownRange;
+	public float maxGrappleCount;
+	float grappleCount;
     float verticalRotation;
     float horizontalRotation;
     Vector3 launchDir;
@@ -49,13 +51,16 @@ public class PlayerLookMove : MonoBehaviour {
         }
 
         //Launch Player
-        if (Input.GetKeyDown(KeyCode.Mouse0) && mouseLock && !launched) {
+        if (Input.GetKeyDown(KeyCode.Mouse0) && mouseLock && grappleCount < maxGrappleCount) {
+			grappleCount++;
             StartLaunch();
         }
 
         if (launched) {
             LaunchMove();
-        }
+        } else {
+			grappleCount = 0;
+		}
     }
 
     void MouseLook() {
@@ -90,11 +95,9 @@ public class PlayerLookMove : MonoBehaviour {
         }
 	}
 
-	/*void OnCollisionEnter (Collision c) {
+	void OnCollisionEnter (Collision c) {
 		launched = false;
-		transform.rotation = c.transform.rotation;
-        Attach(c.transform);
-	}*/
+	}
 
     void Attach(Transform t) {
         attachedTo = t;
@@ -128,7 +131,7 @@ public class PlayerLookMove : MonoBehaviour {
 		//if (Physics.Raycast(transform.position, mainCam.transform.forward, out hitPoint)) {
 		if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitPoint)) {
 			Debug.DrawLine(transform.position, hitPoint.point, Color.red, 5f);
-			if (Vector3.Distance(hitPoint.point, transform.position) > maxGrappleDist) {
+			if (Vector3.Distance(hitPoint.point, transform.position) > minGrappleDist) {
 				launchDir = (hitPoint.point - transform.position).normalized;
 				launched = true;
                 attachedTo = null;
