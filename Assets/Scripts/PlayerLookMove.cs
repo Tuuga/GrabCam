@@ -96,7 +96,7 @@ public class PlayerLookMove : MonoBehaviour {
     void LaunchMove() {
         RaycastHit hit;
 
-        if (Physics.SphereCast(transform.position, radius, launchDir, out hit, movSpeed * Time.deltaTime)) {
+        if (Physics.SphereCast(transform.position, radius, launchDir, out hit, movSpeed * Time.deltaTime, Physics.DefaultRaycastLayers,QueryTriggerInteraction.Ignore)) {
             launched = false;
             grappleCount = 0;
             transform.position += launchDir * hit.distance;
