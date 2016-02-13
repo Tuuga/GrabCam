@@ -4,7 +4,7 @@ using System.Collections;
 
 public class PlayerLookMove : MonoBehaviour {
 
-    bool mouseLock;
+    
     bool launched;
     public float minGrappleDist;
     public float movSpeed;
@@ -12,8 +12,13 @@ public class PlayerLookMove : MonoBehaviour {
     public float upDownRange;
 	public float maxGrappleCount;
 	float grappleCount;
+
+    //Camera Vars
     float verticalRotation;
     float horizontalRotation;
+    bool mouseLock;
+    Quaternion baseRotation = Quaternion.identity;
+
     Vector3 launchDir;
     Vector3 playerToObject;
     public GameObject mainCam;
@@ -22,11 +27,13 @@ public class PlayerLookMove : MonoBehaviour {
     RaycastHit hitPoint;
 
     float radius = 1.0f;
-
+    
+    //Attach Vars
     Transform attachedTo;
     Vector3 attachDir;
     Vector3 attachPos;
     Vector3 attachScale;
+    Vector3 attachPoint;
     Quaternion attachRot;
 
     void Start() {
@@ -34,6 +41,15 @@ public class PlayerLookMove : MonoBehaviour {
     }
 
     void Update() {
+
+        //Launch Player
+        if (Input.GetKeyDown(KeyCode.Mouse0) && mouseLock && grappleCount < maxGrappleCount) {
+            grappleCount++;
+            StartLaunch();
+        }
+    }
+
+    void LateUpdate() {
         if (attachedTo != null) {
             StayAttached();
         }
@@ -43,24 +59,17 @@ public class PlayerLookMove : MonoBehaviour {
             MouseLock();
         }
 
-        //Launch Player
-        if (Input.GetKeyDown(KeyCode.Mouse0) && mouseLock && grappleCount < maxGrappleCount) {
-			grappleCount++;
-            StartLaunch();
-        }
-
         if (launched) {
             LaunchMove();
-        } else {
-			grappleCount = 0;
+        }
+
+        if (mouseLock) {
+            MouseLook();
         }
 
         mainCam.transform.position = transform.position;
         mouseSens = mouseSlider.value;
         mouseText.text = ("Mouse Sensitivity\n" + mouseSens);
-        if (mouseLock) {
-            MouseLook();
-        }
 
     }
 
@@ -69,8 +78,8 @@ public class PlayerLookMove : MonoBehaviour {
         verticalRotation = Mathf.Clamp(verticalRotation, -upDownRange, upDownRange);
 
         horizontalRotation += Input.GetAxis("Mouse X") * mouseSens * Time.deltaTime;
-        mainCam.transform.localRotation = Quaternion.Euler(verticalRotation, horizontalRotation, 0);
-        //transform.rotation = Quaternion.Euler(transform.rotation.x, horizontalRotation, transform.rotation.z);
+
+        mainCam.transform.localRotation = Quaternion.Euler(verticalRotation, horizontalRotation, 0) * baseRotation;
     }
 
     void MouseLock() {
@@ -87,42 +96,45 @@ public class PlayerLookMove : MonoBehaviour {
     void LaunchMove() {
         RaycastHit hit;
 
-        if (Physics.SphereCast(transform.position, radius, launchDir, out hit, movSpeed * Time.deltaTime)) {
+        if (Physics.SphereCast(transform.position, radius, launchDir, out hit, movSpeed * Time.deltaTime, Physics.DefaultRaycastLayers,QueryTriggerInteraction.Ignore)) {
             launched = false;
+            grappleCount = 0;
             transform.position += launchDir * hit.distance;
-            Attach(hit.collider.transform);
+            Attach(hit.collider.transform, hit.point);
         } else {
 		    transform.position += launchDir * movSpeed * Time.deltaTime;
         }
 	}
 
-	void OnCollisionEnter (Collision c) {
+	/*void OnCollisionEnter (Collision c) {
 		launched = false;
-	}
+	}*/
 
-    void Attach(Transform t) {
+    void Attach(Transform t, Vector3 rayHitPoint) {
         attachedTo = t;
         attachPos = t.position;
-        attachScale = t.localScale;
-        attachRot = t.localRotation;
-        Vector3 attachDifference = transform.position - t.position;
-        attachDifference = attachDifference.normalized * (attachDifference.magnitude - radius);
+        attachScale = t.lossyScale;
+        attachRot = t.rotation;
+        Vector3 attachDifference = rayHitPoint - t.position;
         attachDifference = Quaternion.Inverse(attachRot)*attachDifference;
+        attachPoint = (Quaternion.Inverse(attachRot) * (transform.position - rayHitPoint)).normalized;
         attachDir = new Vector3(attachDifference.x / attachScale.x, attachDifference.y / attachScale.y, attachDifference.z / attachScale.z);
     }
 
     void StayAttached() {
-        if (attachedTo.rotation != attachRot)
-            attachRot = attachedTo.localRotation;
+        if (attachedTo.rotation != attachRot) {
+            //baseRotation *= Quaternion.Inverse(attachRot) * attachedTo.rotation; 
+            attachRot = attachedTo.rotation;
+        }
 
-        if (attachedTo.localScale != attachScale)
-            attachScale = attachedTo.localScale;
+        if (attachedTo.lossyScale != attachScale)
+            attachScale = attachedTo.lossyScale;
 
         if (attachedTo.position != attachPos)
             attachPos = attachedTo.position;
 
         Vector3 attachDifference = attachRot * new Vector3(attachDir.x * attachScale.x, attachDir.y * attachScale.y, attachDir.z * attachScale.z);
-        transform.position = attachPos + attachDifference.normalized*(attachDifference.magnitude + radius);
+        transform.position = attachPos + attachDifference + attachRot*attachPoint*radius;
     }
 
 	void StartLaunch () {
