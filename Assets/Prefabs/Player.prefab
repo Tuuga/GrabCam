@@ -30,7 +30,7 @@ GameObject:
   - 23: {fileID: 2356508}
   m_Layer: 0
   m_Name: Player Model
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,9 +104,9 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &11488594
 MonoBehaviour:
@@ -127,6 +127,8 @@ MonoBehaviour:
   mainCam: {fileID: 0}
   mouseSlider: {fileID: 0}
   mouseText: {fileID: 0}
+  minShrink: 0.4
+  shrinkSpeed: 1.4
 --- !u!135 &13552256
 SphereCollider:
   m_ObjectHideFlags: 1

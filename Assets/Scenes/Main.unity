@@ -2676,7 +2676,7 @@ Prefab:
     - target: {fileID: 11488594, guid: 3e8d979cbfee33046886fcafd03b90a2, type: 2}
       propertyPath: mainCam
       value: 
-      objectReference: {fileID: 1159401330}
+      objectReference: {fileID: 1159401334}
     - target: {fileID: 11488594, guid: 3e8d979cbfee33046886fcafd03b90a2, type: 2}
       propertyPath: mouseSlider
       value: 
@@ -2688,6 +2688,18 @@ Prefab:
     - target: {fileID: 156490, guid: 3e8d979cbfee33046886fcafd03b90a2, type: 2}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 11488594, guid: 3e8d979cbfee33046886fcafd03b90a2, type: 2}
+      propertyPath: minShrink
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5483464, guid: 3e8d979cbfee33046886fcafd03b90a2, type: 2}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5483464, guid: 3e8d979cbfee33046886fcafd03b90a2, type: 2}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3e8d979cbfee33046886fcafd03b90a2, type: 2}

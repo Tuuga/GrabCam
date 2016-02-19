@@ -21,27 +21,30 @@ public class PlayerLookMove : MonoBehaviour {
 
     Vector3 launchDir;
     Vector3 playerToObject;
-    public GameObject mainCam;
+    public Camera mainCam;
     public Slider mouseSlider;
     public Text mouseText;
     RaycastHit hitPoint;
+    public float minShrink;
+    public float shrinkSpeed;
 
-    float radius = 1.0f;
+    float radius;
+    float shrink = 1;
     
     //Attach Vars
     Transform attachedTo;
     Vector3 attachDir;
     Vector3 attachPos;
     Vector3 attachScale;
-    Vector3 attachPoint;
+    Vector3 attachNormal;
     Quaternion attachRot;
 
     void Start() {
         MouseLock();
+        radius = transform.localScale.x;
     }
 
     void Update() {
-
         //Launch Player
         if (Input.GetKeyDown(KeyCode.Mouse0) && mouseLock && grappleCount < maxGrappleCount) {
             grappleCount++;
@@ -61,6 +64,8 @@ public class PlayerLookMove : MonoBehaviour {
 
         if (launched) {
             LaunchMove();
+        } else if (shrink < 1) {
+            SetShrink(shrink + Time.deltaTime*shrinkSpeed);
         }
 
         if (mouseLock) {
@@ -70,7 +75,6 @@ public class PlayerLookMove : MonoBehaviour {
         mainCam.transform.position = transform.position;
         mouseSens = mouseSlider.value;
         mouseText.text = ("Mouse Sensitivity\n" + mouseSens);
-
     }
 
     void MouseLook() {
@@ -96,11 +100,11 @@ public class PlayerLookMove : MonoBehaviour {
     void LaunchMove() {
         RaycastHit hit;
 
-        if (Physics.SphereCast(transform.position, radius, launchDir, out hit, movSpeed * Time.deltaTime, Physics.DefaultRaycastLayers,QueryTriggerInteraction.Ignore)) {
+        if (Physics.SphereCast(transform.position, transform.localScale.x, launchDir, out hit, movSpeed * Time.deltaTime, Physics.DefaultRaycastLayers,QueryTriggerInteraction.Ignore)) {
             launched = false;
             grappleCount = 0;
             transform.position += launchDir * hit.distance;
-            Attach(hit.collider.transform, hit.point);
+            Attach(hit.collider.transform, hit);
         } else {
 		    transform.position += launchDir * movSpeed * Time.deltaTime;
         }
@@ -110,20 +114,19 @@ public class PlayerLookMove : MonoBehaviour {
 		launched = false;
 	}*/
 
-    void Attach(Transform t, Vector3 rayHitPoint) {
+    void Attach(Transform t, RaycastHit hit) {
         attachedTo = t;
         attachPos = t.position;
         attachScale = t.lossyScale;
         attachRot = t.rotation;
-        Vector3 attachDifference = rayHitPoint - t.position;
+        Vector3 attachDifference = hit.point - t.position;
         attachDifference = Quaternion.Inverse(attachRot)*attachDifference;
-        attachPoint = (Quaternion.Inverse(attachRot) * (transform.position - rayHitPoint)).normalized;
+        attachNormal = Quaternion.Inverse(attachRot) * hit.normal;
         attachDir = new Vector3(attachDifference.x / attachScale.x, attachDifference.y / attachScale.y, attachDifference.z / attachScale.z);
     }
 
     void StayAttached() {
         if (attachedTo.rotation != attachRot) {
-            //baseRotation *= Quaternion.Inverse(attachRot) * attachedTo.rotation; 
             attachRot = attachedTo.rotation;
         }
 
@@ -134,15 +137,18 @@ public class PlayerLookMove : MonoBehaviour {
             attachPos = attachedTo.position;
 
         Vector3 attachDifference = attachRot * new Vector3(attachDir.x * attachScale.x, attachDir.y * attachScale.y, attachDir.z * attachScale.z);
-        transform.position = attachPos + attachDifference + attachRot*attachPoint*radius;
+        transform.position = attachPos + attachDifference + attachRot*attachNormal*radius*shrink;
     }
 
 	void StartLaunch () {
-		Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        launchDir = camRay.direction;
-        launched = true;
-        attachedTo = null;
+        RaycastHit hit;
+        Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (!Physics.SphereCast(transform.position, radius*shrink, camRay.direction, out hit, movSpeed * Time.deltaTime, Physics.DefaultRaycastLayers,QueryTriggerInteraction.Ignore)) {
+            SetShrink(minShrink);
+            launchDir = camRay.direction;
+            launched = true;
+            attachedTo = null;
+        } 
 
         //LayerMask mask = 1 << 8;
         //Debug.Log("GrappleDir");
@@ -159,4 +165,23 @@ public class PlayerLookMove : MonoBehaviour {
 			}
 		}*/
 	}
+
+    void SetShrink(float shr) {
+        shr = Mathf.Min(1, shr);
+        Collider[] coll = Physics.OverlapSphere(transform.position + attachRot * attachNormal * Mathf.Max(0,shr - shrink), radius * shr, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+
+        bool hit = false;
+
+        foreach (Collider c in coll) {
+            if (c.tag != "Player") {
+                hit = true;
+                print(c.name);
+            }
+        }
+
+        if (!hit) {
+            shrink = shr;
+            transform.localScale = Vector3.one * radius * shrink;
+        }
+    }
 }
